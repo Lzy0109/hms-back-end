@@ -1,8 +1,11 @@
 spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
   datasource:
     username: root
     password: root
-    url: jdbc:mysql://localhost:3306/hms?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://8.129.75.57:3306/hms?useUnicode=true&amp;characterEncoding=utf-8
     driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     druid:

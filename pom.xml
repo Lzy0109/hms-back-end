@@ -90,10 +90,10 @@
         </dependency>
         <!-- 开启热部署功能 -->
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-devtools -->
-        <!-- <dependency>
+         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
-        </dependency> -->
+         </dependency>
     </dependencies>
 
     <build>
