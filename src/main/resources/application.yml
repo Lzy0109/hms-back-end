@@ -33,3 +33,6 @@ mybatis:
     - classpath*:mappers/**/*.xml
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+file:
+  upload-folder: http://8.129.75.57/app/hms/attachment

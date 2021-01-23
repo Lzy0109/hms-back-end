@@ -25,6 +25,12 @@ public class NationServiceImpl implements NationService {
 
     @Override
     public Nation queryNationById(Integer id) {
-        return nationMapper.selectByPrimaryKey(id);
+        Nation nation = nationMapper.selectByPrimaryKey(id);
+        // 检查数据是否有效
+        if(nation.getDataFlag() == -1) {
+            return null;
+        } else {
+            return nation;
+        }
     }
 }

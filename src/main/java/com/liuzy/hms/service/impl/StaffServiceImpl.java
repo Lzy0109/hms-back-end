@@ -9,6 +9,7 @@ import com.liuzy.hms.util.VoUtil;
 import com.liuzy.hms.vo.StaffVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 
@@ -36,6 +37,11 @@ public class StaffServiceImpl implements StaffService {
         } else {
             return staff;
         }
+    }
+
+    @Override
+    public List<Staff> queryStaffByExample(Staff staff) {
+        return staffMapper.select(staff);
     }
 
     @Override

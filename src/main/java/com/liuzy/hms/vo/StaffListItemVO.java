@@ -14,6 +14,8 @@ public class StaffListItemVO {
     private String gender_name;
     private String education_name;
     private String position_name;
+    private String phone;
+    private Date entryTime;
 
     public Integer getId() {
         return id;
@@ -78,7 +80,4 @@ public class StaffListItemVO {
     public void setEntryTime(Date entryTime) {
         this.entryTime = entryTime;
     }
-
-    private String phone;
-    private Date entryTime;
 }

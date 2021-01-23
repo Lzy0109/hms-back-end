@@ -25,6 +25,12 @@ public class EducationServiceImpl implements EducationService {
 
     @Override
     public Education queryEducationById(Integer id) {
-        return educationMapper.selectByPrimaryKey(id);
+        Education education = educationMapper.selectByPrimaryKey(id);
+        // 检查数据是否有效
+        if(education.getDataFlag() == -1) {
+            return null;
+        } else {
+            return education;
+        }
     }
 }

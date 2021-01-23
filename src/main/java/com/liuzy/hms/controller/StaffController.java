@@ -91,4 +91,16 @@ public class StaffController {
             return JsonResult.isOk(record);
         }
     }
+
+    @GetMapping("/queryExample")
+    @ApiOperation("条件查询员工信息")
+    public JsonResult selectStaffByExample(Staff staffExample) {
+        log.info("select staff by example");
+        List<Staff> staffList = staffService.queryStaffByExample(staffExample);
+        List<StaffListItemVO> staffListVo = new ArrayList<>();
+        for (Staff staff: staffList) {
+            staffListVo.add(voUtil.toStaffListItemVo(staff));
+        }
+        return JsonResult.isOk(staffListVo);
+    }
 }

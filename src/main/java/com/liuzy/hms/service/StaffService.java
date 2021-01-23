@@ -15,6 +15,8 @@ public interface StaffService {
     Integer insertStaff(Staff staff);
     // 根据id查询员工信息
     Staff queryStaffById(Integer id);
+    // 条件查询员工信息
+    List<Staff> queryStaffByExample(Staff staff);
     // 查询所有员工信息
     List<Staff> queryAllStaff();
     // 根据id删除员工信息

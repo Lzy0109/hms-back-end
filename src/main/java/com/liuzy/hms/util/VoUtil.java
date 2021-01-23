@@ -1,13 +1,10 @@
 package com.liuzy.hms.util;
 
-import com.liuzy.hms.mapper.EducationMapper;
-import com.liuzy.hms.mapper.NationMapper;
-import com.liuzy.hms.mapper.PositionMapper;
+import com.liuzy.hms.mapper.*;
+import com.liuzy.hms.pojo.Order;
 import com.liuzy.hms.pojo.Position;
 import com.liuzy.hms.pojo.Staff;
-import com.liuzy.hms.vo.PositionVo;
-import com.liuzy.hms.vo.StaffListItemVO;
-import com.liuzy.hms.vo.StaffVo;
+import com.liuzy.hms.vo.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -27,6 +24,12 @@ public class VoUtil {
     private EducationMapper educationMapper;
     @Autowired
     private PositionMapper positionMapper;
+    @Autowired
+    private AssignStatusMapper assignStatusMapper;
+    @Autowired
+    private OrderStatusMapper orderStatusMapper;
+    @Autowired
+    private MemberMapper memberMapper;
 
     /**
      * 将staff对象转换为staffVo对象
@@ -89,11 +92,51 @@ public class VoUtil {
      */
     public PositionVo toPositionVo(Position position) {
         PositionVo positionVo = new PositionVo();
-        if(position == null) {
+        if(position == null || position.getDataFlag() == -1) {
             positionVo = null;
         } else {
             BeanUtils.copyProperties(position, positionVo);
         }
         return positionVo;
+    }
+
+    /**
+     * 将order对象转换为orderVo对象
+     * @param order
+     * @return orderVo
+     */
+    public OrderVo toOrderVo(Order order) {
+        OrderVo orderVo = new OrderVo();
+        if(order == null || order.getDataFlag() == -1) {
+            orderVo = null;
+        } else {
+            BeanUtils.copyProperties(order, orderVo);
+            // 设置用户名
+            orderVo.setMemberName(memberMapper.selectByPrimaryKey(order.getMemberId()).getUsername());
+            // 设置派遣状态
+
+            // 设置订单状态
+            orderVo.setOrderStatusName(orderStatusMapper.selectByPrimaryKey(order.getOrderStatus()).getStatusName());
+        }
+        return orderVo;
+    }
+
+    /**
+     * 将order对象转换为orderListItemVo对象
+     * @param order
+     * @return orderListItemVo
+     */
+    public OrderListItemVo toOrderListItemVo(Order order) {
+        OrderListItemVo orderListItemVo = new OrderListItemVo();
+        if(order == null || order.getDataFlag() == -1) {
+            orderListItemVo = null;
+        } else {
+            BeanUtils.copyProperties(order, orderListItemVo);
+            // 设置用户名
+            orderListItemVo.setMemberName(memberMapper.selectByPrimaryKey(order.getMemberId()).getUsername());
+            //设置订单状态
+            orderListItemVo.setOrderStatusName(orderStatusMapper.selectByPrimaryKey(order.getOrderStatus()).getStatusName());
+        }
+        return orderListItemVo;
     }
 }
