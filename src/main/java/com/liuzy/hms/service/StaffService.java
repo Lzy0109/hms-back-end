@@ -2,6 +2,7 @@ package com.liuzy.hms.service;
 
 import com.liuzy.hms.pojo.Staff;
 import com.liuzy.hms.vo.StaffVo;
+import io.swagger.models.auth.In;
 
 import java.util.List;
 
@@ -16,9 +17,9 @@ public interface StaffService {
     // 根据id查询员工信息
     Staff queryStaffById(Integer id);
     // 条件查询员工信息
-    List<Staff> queryStaffByExample(Staff staff);
+    List<Staff> queryStaffByExample(Staff staff, Integer pageNum, Integer pageSize);
     // 查询所有员工信息
-    List<Staff> queryAllStaff();
+    List<Staff> queryAllStaff(Integer pageNum, Integer pageSize);
     // 根据id删除员工信息
     Integer deleteStaffById(Integer id);
     // 修改员工信息

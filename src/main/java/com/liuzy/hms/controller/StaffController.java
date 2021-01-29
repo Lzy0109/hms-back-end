@@ -1,10 +1,13 @@
 package com.liuzy.hms.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.liuzy.hms.common.JsonResult;
-import com.liuzy.hms.mapper.EducationMapper;
-import com.liuzy.hms.mapper.NationMapper;
+import com.liuzy.hms.common.PageRequest;
+import com.liuzy.hms.common.PageResult;
 import com.liuzy.hms.pojo.Staff;
 import com.liuzy.hms.service.StaffService;
+import com.liuzy.hms.util.PageUtil;
 import com.liuzy.hms.util.VoUtil;
 import com.liuzy.hms.vo.StaffListItemVO;
 import com.liuzy.hms.vo.StaffVo;
@@ -31,6 +34,8 @@ public class StaffController {
     private StaffService staffService;
     @Autowired
     private VoUtil voUtil;
+    @Autowired
+    private PageUtil pageUtil;
 
     @PostMapping
     @ApiOperation("添加员工信息")
@@ -58,14 +63,19 @@ public class StaffController {
 
     @GetMapping
     @ApiOperation("查询所有员工信息")
-    public JsonResult queryAllStaff() {
+    public JsonResult queryAllStaff(PageRequest pageRequest) {
         log.info("query all staff");
-        List<Staff> staffList = staffService.queryAllStaff();
+        // 进入service层获取数据
+        List<Staff> staffList = staffService.queryAllStaff(
+                pageRequest.getPageNum(),pageRequest.getPageSize());
+        // 封装controller层vo对象
         List<StaffListItemVO> staffListVo = new ArrayList<>();
         for (Staff staff: staffList) {
             staffListVo.add(voUtil.toStaffListItemVo(staff));
         }
-        return JsonResult.isOk(staffListVo);
+        // 封装分页pageResult
+        PageResult pageResult = pageUtil.toStaffPageResult(null, pageRequest, staffListVo);
+        return JsonResult.isOk(pageResult);
     }
 
     @DeleteMapping("/{id:\\d+}")
@@ -84,6 +94,7 @@ public class StaffController {
     @ApiOperation("修改员工信息")
     public JsonResult updateStaff(Staff staff) {
         log.info("update staff");
+        System.out.println(staff.toString());
         Integer record = staffService.updateStaff(staff);
         if(record == -1) {
             return JsonResult.errorNotFound();
@@ -92,15 +103,18 @@ public class StaffController {
         }
     }
 
-    @GetMapping("/queryExample")
+    @GetMapping("/example")
     @ApiOperation("条件查询员工信息")
-    public JsonResult selectStaffByExample(Staff staffExample) {
+    public JsonResult queryStaffByExample(Staff staffExample,PageRequest pageRequest) {
         log.info("select staff by example");
-        List<Staff> staffList = staffService.queryStaffByExample(staffExample);
+        System.out.println(staffExample.toString());
+        List<Staff> staffList = staffService.queryStaffByExample(
+                staffExample, pageRequest.getPageNum(), pageRequest.getPageSize());
         List<StaffListItemVO> staffListVo = new ArrayList<>();
         for (Staff staff: staffList) {
             staffListVo.add(voUtil.toStaffListItemVo(staff));
         }
-        return JsonResult.isOk(staffListVo);
+        PageResult pageResult = pageUtil.toStaffPageResult(staffExample, pageRequest, staffListVo);
+        return JsonResult.isOk(pageResult);
     }
 }

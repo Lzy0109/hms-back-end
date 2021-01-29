@@ -15,16 +15,23 @@ public class StaffVo {
     private String jobNumber;
     private Byte loginStatus;
     private String trueName;
+    private Byte gender;
     private String gender_name;
     private Date birth;
+    private Integer nation;
     private String nation_name;
+    private Integer education;
     private String education_name;
     private String identification;
     private String email;
+    private Integer positionId;
     private String position_name;
     private String phone;
     private String address;
     private Date entryTime;
+    private Date resignationTime;
+    private Byte dataFlag;
+    private Date createTime;
 
     public Integer getId() {
         return id;
@@ -58,6 +65,14 @@ public class StaffVo {
         this.trueName = trueName;
     }
 
+    public Byte getGender() {
+        return gender;
+    }
+
+    public void setGender(Byte gender) {
+        this.gender = gender;
+    }
+
     public String getGender_name() {
         return gender_name;
     }
@@ -74,12 +89,28 @@ public class StaffVo {
         this.birth = birth;
     }
 
+    public Integer getNation() {
+        return nation;
+    }
+
+    public void setNation(Integer nation) {
+        this.nation = nation;
+    }
+
     public String getNation_name() {
         return nation_name;
     }
 
     public void setNation_name(String nation_name) {
         this.nation_name = nation_name;
+    }
+
+    public Integer getEducation() {
+        return education;
+    }
+
+    public void setEducation(Integer education) {
+        this.education = education;
     }
 
     public String getEducation_name() {
@@ -104,6 +135,14 @@ public class StaffVo {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Integer getPositionId() {
+        return positionId;
+    }
+
+    public void setPositionId(Integer positionId) {
+        this.positionId = positionId;
     }
 
     public String getPosition_name() {
@@ -146,5 +185,19 @@ public class StaffVo {
         this.resignationTime = resignationTime;
     }
 
-    private Date resignationTime;
+    public Byte getDataFlag() {
+        return dataFlag;
+    }
+
+    public void setDataFlag(Byte dataFlag) {
+        this.dataFlag = dataFlag;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 }

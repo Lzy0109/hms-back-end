@@ -14,6 +14,7 @@ public class OrderListItemVo {
     private String phone;
     private String orderStatusName;
     private Date appointmentTime;
+    private Date createTime;
 
     public Integer getId() {
         return id;
@@ -61,5 +62,13 @@ public class OrderListItemVo {
 
     public void setAppointmentTime(Date appointmentTime) {
         this.appointmentTime = appointmentTime;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }

@@ -6,6 +6,8 @@ import com.liuzy.hms.service.PositionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @Author LiuZiYi
  * @Date 2021/1/19 20:40
@@ -25,5 +27,10 @@ public class PositionServiceImpl implements PositionService {
         } else {
             return position;
         }
+    }
+
+    @Override
+    public List<Position> queryAllPosition() {
+        return positionMapper.selectAll();
     }
 }

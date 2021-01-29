@@ -1,15 +1,14 @@
 package com.liuzy.hms.service.impl;
 
-import com.liuzy.hms.mapper.EducationMapper;
-import com.liuzy.hms.mapper.NationMapper;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.liuzy.hms.mapper.StaffMapper;
 import com.liuzy.hms.pojo.Staff;
 import com.liuzy.hms.service.StaffService;
-import com.liuzy.hms.util.VoUtil;
-import com.liuzy.hms.vo.StaffVo;
+import com.liuzy.hms.util.JobNumberGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import tk.mybatis.mapper.entity.Example;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,13 +18,21 @@ import java.util.List;
  * @Version 1.0
  */
 @Service
+@Transactional
 public class StaffServiceImpl implements StaffService {
     @Autowired
     private StaffMapper staffMapper;
+    @Autowired
+    private JobNumberGenerator jobNumberGenerator;
 
     @Override
     public Integer insertStaff(Staff staff) {
-        return staffMapper.insert(staff);
+        // 生成工号
+        staff.setJobNumber(jobNumberGenerator.generator());
+        // 同步登录账号
+        staff.setLoginName(staff.getJobNumber());
+        System.out.println("insert staff: " + staff.toString());
+        return staffMapper.insertSelective(staff);
     }
 
     @Override
@@ -40,12 +47,14 @@ public class StaffServiceImpl implements StaffService {
     }
 
     @Override
-    public List<Staff> queryStaffByExample(Staff staff) {
+    public List<Staff> queryStaffByExample(Staff staff, Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         return staffMapper.select(staff);
     }
 
     @Override
-    public List<Staff> queryAllStaff() {
+    public List<Staff> queryAllStaff(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
         return staffMapper.selectAll();
     }
 

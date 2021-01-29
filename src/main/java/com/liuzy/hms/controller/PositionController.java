@@ -1,6 +1,7 @@
 package com.liuzy.hms.controller;
 
 import com.liuzy.hms.common.JsonResult;
+import com.liuzy.hms.pojo.Position;
 import com.liuzy.hms.service.PositionService;
 import com.liuzy.hms.util.VoUtil;
 import com.liuzy.hms.vo.PositionVo;
@@ -12,6 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -39,5 +43,17 @@ public class PositionController {
         } else {
             return JsonResult.isOk(positionVo);
         }
+    }
+    @GetMapping
+    @ApiOperation("查询所有职位信息")
+    public JsonResult queryAllPosition() {
+        List<Position> positionList = positionService.queryAllPosition();
+        List<PositionVo> positionListVo = new ArrayList<>();
+        for (Position position : positionList) {
+            if(voUtil.toPositionVo(position) != null){
+                positionListVo.add(voUtil.toPositionVo(position));
+            }
+        }
+        return JsonResult.isOk(positionListVo);
     }
 }

@@ -1,5 +1,10 @@
 package com.liuzy.hms.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import javafx.beans.DefaultProperty;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
@@ -53,6 +58,8 @@ public class Staff implements Serializable {
      * 出生日期
      */
     @Column(name = "`birth`")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birth;
 
     /**
@@ -101,12 +108,16 @@ public class Staff implements Serializable {
      * 入职时间
      */
     @Column(name = "`entry_time`")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date entryTime;
 
     /**
      * 离职时间
      */
     @Column(name = "`resignation_time`")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date resignationTime;
 
     /**
@@ -119,6 +130,8 @@ public class Staff implements Serializable {
      * 创建时间
      */
     @Column(name = "`create_time`")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date createTime;
 
     private static final long serialVersionUID = 1L;
@@ -463,5 +476,30 @@ public class Staff implements Serializable {
      */
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    @Override
+    public String toString() {
+        return "Staff{" +
+                "id=" + id +
+                ", jobNumber='" + jobNumber + '\'' +
+                ", loginName='" + loginName + '\'' +
+                ", loginPwd='" + loginPwd + '\'' +
+                ", loginStatus=" + loginStatus +
+                ", trueName='" + trueName + '\'' +
+                ", gender=" + gender +
+                ", birth=" + birth +
+                ", nation=" + nation +
+                ", education=" + education +
+                ", identification='" + identification + '\'' +
+                ", email='" + email + '\'' +
+                ", positionId=" + positionId +
+                ", phone='" + phone + '\'' +
+                ", address='" + address + '\'' +
+                ", entryTime=" + entryTime +
+                ", resignationTime=" + resignationTime +
+                ", dataFlag=" + dataFlag +
+                ", createTime=" + createTime +
+                '}';
     }
 }

@@ -32,6 +32,6 @@ public class AssginStatusController {
     @GetMapping("{id:\\d+}")
     @ApiOperation("根据id查询派遣状态")
     public JsonResult queryAssignStatusById(@PathVariable Integer id) {
-        return JsonResult.isOk(assginStatusService.querryAssignStatusById(id));
+        return JsonResult.isOk(assginStatusService.queryAssignStatusById(id));
     }
 }
